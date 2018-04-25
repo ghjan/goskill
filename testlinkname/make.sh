@@ -15,7 +15,7 @@ function go-tool-link-pkg() {
   go tool link -o $out -L $GOPATH/src $GOPATH/src/$importpath.a
 }
 
-go-tool-compile-pkg github.com/ghjan/testlinkname/private
-go-tool-compile-pkg github.com/ghjan/testlinkname/hello
-go-tool-compile-pkg github.com/ghjan/testlinkname
-go-tool-link-pkg github.com/ghjan/testlinkname
+go-tool-compile-pkg github.com/ghjan/goskill/testlinkname/private
+go-tool-compile-pkg github.com/ghjan/goskill/testlinkname/hello
+go-tool-compile-pkg github.com/ghjan/goskill/testlinkname
+go-tool-link-pkg github.com/ghjan/goskill/testlinkname
