@@ -15,8 +15,10 @@ func main() {
 	waitForTask()
 	waitForResult()
 
+	fmt.Println("-------fanOut----")
 	fanOut()
-
+	fmt.Println("-------selectDrop----")
+	selectDrop()
 }
 
 // 场景1 - 等待任务
@@ -70,4 +72,33 @@ func fanOut() {
 		fmt.Println("get paper:", p)
 		emps--
 	}
+}
+
+// 场景2 - Drop
+//假设你是经理，你雇佣了单个员工来完成工作。你有一个单独的任务想员工去执行。
+//当员工完成他们任务时，你不在乎知道他们已经完成了。
+//最重要的是你能或不能把新工作放入盒子。
+//如果你不能执行发送，这时你知道你的盒子满了并且员工是满负荷的。
+//这时候，新工作需要丢弃以便让事情继续进行。
+func selectDrop() {
+	const cap = 5
+	ch := make(chan string, cap)
+
+	go func() {
+		for p := range ch {
+			fmt.Println("employee : received :", p)
+		}
+	}()
+
+	const work = 20
+	for w := 0; w < work; w++ {
+		select {
+		case ch <- "paper":
+			fmt.Println("manager : send ack")
+		default:
+			fmt.Println("manager : drop")
+		}
+	}
+
+	close(ch)
 }
